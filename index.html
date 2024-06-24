@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Pure CSS 3D</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+    html, body, div {
+      display: grid;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      overflow: hidden;
+      margin: 0;
+      perspective: 65em;
+      perspective-origin: 50% -25%;
+      background: currentcolor;
+      color: #212121;
+    }
+
+    .a3d {
+      --m: calc(.5*(var(--n) - 1));
+      place-self: center;
+      rotate: x 90deg;
+      transform-style: preserve-3d;
+    }
+
+    .lyr {
+      grid-area: 1/1;
+      translate: 0 0 calc((var(--i) - .5*var(--n))*min(.75rem, 50vh/var(--n)));
+      -webkit-text-stroke: 4px hotpink;
+      font: 900 20vmin anton, sans-serif;
+      text-transform: uppercase;
+      animation: r 4s cubic-bezier(0.68, -0.65, 0.32, 1.65) calc((var(--i)/var(--n) - 1)*4s) infinite;
+    }
+
+    @keyframes r {
+      to {
+        rotate: 1turn;
+      }
+    }
+  </style>
+</head>
+<body style="--n: 40">
+  <div class="a3d">
+    <div class="lyr" style="--i: 39">xiaocia</div>
+    <div class="lyr" style="--i: 38">xiaocia</div>
+    <div class="lyr" style="--i: 37">xiaocia</div>
+    <div class="lyr" style="--i: 36">xiaocia</div>
+    <div class="lyr" style="--i: 35">xiaocia</div>
+    <div class="lyr" style="--i: 34">xiaocia</div>
+    <div class="lyr" style="--i: 33">xiaocia</div>
+    <div class="lyr" style="--i: 32">xiaocia</div>
+    <div class="lyr" style="--i: 31">xiaocia</div>
+    <div class="lyr" style="--i: 30">xiaocia</div>
+    <div class="lyr" style="--i: 29">xiaocia</div>
+    <div class="lyr" style="--i: 28">xiaocia</div>
+    <div class="lyr" style="--i: 27">xiaocia</div>
+    <div class="lyr" style="--i: 26">xiaocia</div>
+    <div class="lyr" style="--i: 25">xiaocia</div>
+    <div class="lyr" style="--i: 24">xiaocia</div>
+    <div class="lyr" style="--i: 23">xiaocia</div>
+    <div class="lyr" style="--i: 22">xiaocia</div>
+    <div class="lyr" style="--i: 21">xiaocia</div>
+    <div class="lyr" style="--i: 20">xiaocia</div>
+    <div class="lyr" style="--i: 19">xiaocia</div>
+    <div class="lyr" style="--i: 18">xiaocia</div>
+    <div class="lyr" style="--i: 17">xiaocia</div>
+    <div class="lyr" style="--i: 16">xiaocia</div>
+    <div class="lyr" style="--i: 15">xiaocia</div>
+    <div class="lyr" style="--i: 14">xiaocia</div>
+    <div class="lyr" style="--i: 13">xiaocia</div>
+    <div class="lyr" style="--i: 12">xiaocia</div>
+    <div class="lyr" style="--i: 11">xiaocia</div>
+    <div class="lyr" style="--i: 10">xiaocia</div>
+    <div class="lyr" style="--i: 9">xiaocia</div>
+    <div class="lyr" style="--i: 8">xiaocia</div>
+    <div class="lyr" style="--i: 7">xiaocia</div>
+    <div class="lyr" style="--i: 6">xiaocia</div>
+    <div class="lyr" style="--i: 5">xiaocia</div>
+    <div class="lyr" style="--i: 4">xiaocia</div>
+    <div class="lyr" style="--i: 3">xiaocia</div>
+    <div class="lyr" style="--i: 2">xiaocia</div>
+    <div class="lyr" style="--i: 1">xiaocia</div>
+    <div class="lyr" style="--i: 0">xiaocia</div>
+  </div>
+</body>
+</html>
