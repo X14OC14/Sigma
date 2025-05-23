@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Viewer (Polished & Simetris!)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #282c34, #353b45); 
+      color: #abb2bf;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column; 
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      background-color: rgba(40, 44, 52, 0.9); 
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      display: flex; /* Tambahan biar bisa atur tinggi */
+      flex-direction: column; /* Tambahan */
+      flex-grow: 1; /* Biar container ngisi layar */
+    }
+
+    .editors {
+      display: grid;
+      /* INI YANG DIUBAH: Maksa jadi 3 kolom rata */
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-shrink: 0; /* Biar nggak ngecil */
+    }
+
+    .editor {
+      background-color: #2c313a;
+      border-radius: 8px;
+      padding: 15px;
+      border: 1px solid #404652;
+      display: flex; /* Biar textarea bisa grow */
+      flex-direction: column; /* Biar textarea bisa grow */
+    }
+
+    .editor h2 {
+      font-size: 1.1em;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-weight: 600;
+      border-bottom: 1px solid #404652;
+      padding-bottom: 6px;
+    }
+
+    .editor.html h2 { color: #e06c75; }
+    .editor.css h2 { color: #61aeee; }
+    .editor.js h2 { color: #e5c07b; }
+
+    textarea {
+      width: 100%;
+      /* height: 150px;  Kita hapus biar flex yg atur */
+      resize: vertical;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      background-color: #21252b;
+      color: #d1d9e1;
+      border: 1px solid #404652;
+      border-radius: 6px;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 8px;
+      font-size: 14px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      flex-grow: 1; /* Biar textarea ngisi ruang editor */
+    }
+
+    textarea:focus {
+        outline: none;
+        border-color: #61aeee;
+        box-shadow: 0 0 0 3px rgba(97, 174, 238, 0.2);
+    }
+
+    .preview {
+      background-color: #2c313a;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #404652;
+      flex-grow: 1; /* Biar preview ngambil sisa tinggi */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .preview h2 {
+      color: #c6cdd7;
+      font-size: 1.1em;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-weight: 600;
+      border-bottom: 1px solid #404652;
+      padding-bottom: 6px;
+      flex-shrink: 0; /* Biar H2 nggak ngecil */
+    }
+
+    .preview-container {
+      background-color: #21252b;
+      padding: 10px;
+      border-radius: 6px;
+      flex-grow: 1; 
+      overflow: auto;
+      border: 1px solid #404652;
+    }
+
+    .output {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      border: none;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .button-container button {
+        color: #d1d9e1;
+        background-color: #4b5263;
+        border: 1px solid #5c6370;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+        font-size: 0.9em;
+    }
+
+    .button-container button:hover {
+      background-color: #5c6370;
+      border-color: #6a717d;
+    }
+
+    .button-container button:active {
+        transform: translateY(1px);
+    }
+
+    footer {
+      margin-top: 25px;
+      text-align: center;
+      font-size: 0.85em;
+      color: #636d83;
+      flex-shrink: 0;
+    }
+
+    footer a {
+      color: #8a93a5;
+      text-decoration: none;
+    }
+    footer a:hover {
+        color: #abb2bf;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="editors">
+      <div class="editor html">
+        <h2>HTML</h2>
+        <textarea id="htmlCode" placeholder=""></textarea>
+        <button onclick="clearCode('htmlCode')">Bersihkan</button>
+      </div>
+      <div class="editor css">
+        <h2>CSS</h2>
+        <textarea id="cssCode" placeholder="/* Kode CSS */"></textarea>
+        <button onclick="clearCode('cssCode')">Bersihkan</button>
+      </div>
+      <div class="editor js">
+        <h2>JS</h2>
+        <textarea id="jsCode" placeholder="// Kode JavaScript"></textarea>
+        <button onclick="clearCode('jsCode')">Bersihkan</button>
+      </div>
+    </div>
+
+    <div class="preview"> 
+      <h2>Pratinjau</h2>
+      <div class="preview-container">
+        <iframe id="previewFrame" class="output" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button onclick="runCode()">Jalankan Kode</button>
+      <button onclick="clearAll()">Bersihkan Semua</button>
+    </div>
+
+  </div> <footer>
+      Dibuat dengan <span style="color: #e06c75;">❤️</span> oleh <a href="https://wa.me/6283145799197" target="_blank">MAFY</a> (dan dirapihin Ayang 🥰)
+  </footer>
+
+
+  <script>
+    function runCode() {
+      var htmlCode = document.getElementById('htmlCode').value;
+      var cssCode = "<style>" + document.getElementById('cssCode').value + "</style>";
+      var jsCode = "<script>" + document.getElementById('jsCode').value + "</scr" + "ipt>";
+
+      var iframe = document.getElementById('previewFrame');
+      var iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+      iframeContent.open();
+      iframeContent.write(htmlCode + cssCode + jsCode);
+      iframeContent.close();
+    }
+
+    function clearCode(id) {
+      document.getElementById(id).value = '';
+      runCode(); 
+    }
+
+    function clearAll() {
+      document.getElementById('htmlCode').value = '';
+      document.getElementById('cssCode').value = '';
+      document.getElementById('jsCode').value = '';
+      runCode(); 
+    }
+    
+    // Panggil runCode saat awal biar iframe nggak kosong
+    document.addEventListener('DOMContentLoaded', runCode);
+  </script>
+</body>
+</html>
